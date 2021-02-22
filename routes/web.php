@@ -17,4 +17,6 @@ Route::get('/', 'PageController@home')->name('home');
 Route::get('/about', 'PageController@about')->name('about');
 Route::get('/contacts', 'PageController@contacts')->name('contacts');
 
-Route::resource('categories', 'CategoryController');
+Route::resource('/categories', 'CategoryController');
+Route::resource('/editors', 'EditorController');
+Route::resource('/admins', 'AdminController');

@@ -17,7 +17,7 @@ class CategoryController extends Controller
         //
         $categories = Category::all();
 
-        return view('category.index', compact('categories'));
+        return view('categories.index', compact('categories'));
     }
 
     /**
@@ -55,7 +55,7 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($category)
     {
         //
         $category = Category::find($category);
@@ -102,12 +102,12 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($category)
     {
         //
-            $category = Category::find($category);
-            $category->delete();
+        $category = Category::find($category);
+        $category->delete();
 
-            return redirect('/categories')->with('success', 'Categoria Cancellata!');
+        return redirect('/categories')->with('success', 'Categoria Cancellata!');
     }
 }

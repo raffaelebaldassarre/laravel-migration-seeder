@@ -24,6 +24,12 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('categories.index') }}">Lista Categorie</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('editors.index') }}">Lista Editor</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admins.index') }}">Lista Admin</a>
+                        </li>
                     </li>
                 </ul>
             </nav>

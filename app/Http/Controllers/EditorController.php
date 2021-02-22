@@ -15,6 +15,9 @@ class EditorController extends Controller
     public function index()
     {
         //
+        $editors = Editor::all();
+
+        return view('editors.index', compact('editors'));
     }
 
     /**
@@ -25,6 +28,7 @@ class EditorController extends Controller
     public function create()
     {
         //
+        return view('admins.create');
     }
 
     /**
@@ -35,7 +39,14 @@ class EditorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData= $request->validate([
+            'name' => 'required',
+            'lastname' => 'required'
+        ]);
+        Editor::create($validateData);
+        $new_editor = Editor::orderBy('id', 'desc')->first();
+
+        return redirect()->route('editors.show', $new_editor);
     }
 
     /**
@@ -44,9 +55,12 @@ class EditorController extends Controller
      * @param  \App\Editor  $editor
      * @return \Illuminate\Http\Response
      */
-    public function show(Editor $editor)
+    public function show($editor)
     {
         //
+        $editor = Editor::find($editor);
+
+        return view('editors.show', compact('editor'));
     }
 
     /**
@@ -55,9 +69,11 @@ class EditorController extends Controller
      * @param  \App\Editor  $editor
      * @return \Illuminate\Http\Response
      */
-    public function edit(Editor $editor)
+    public function edit($editor)
     {
         //
+        $editor = Editor::find($editor);
+        return view('editors.edit', compact('editor'));
     }
 
     /**
@@ -67,9 +83,17 @@ class EditorController extends Controller
      * @param  \App\Editor  $editor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Editor $editor)
+    public function update(Request $request, $editor)
     {
         //
+        $validateData= $request->validate([
+            'name' => 'required',
+            'lastname' => 'required'
+        ]);
+
+        $editor = Editor::find($editor);
+        $editor->update($validateData);
+        return redirect('/editors')->with('success', 'Editor salvato!');
     }
 
     /**
@@ -78,8 +102,12 @@ class EditorController extends Controller
      * @param  \App\Editor  $editor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Editor $editor)
+    public function destroy($editor)
     {
         //
+        $editor = Editor::find($editor);
+        $editor->delete();
+
+        return redirect('/editors')->with('success', 'Editor Cancellato!');
     }
 }

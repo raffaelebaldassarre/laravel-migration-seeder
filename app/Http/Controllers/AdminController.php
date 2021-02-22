@@ -15,6 +15,9 @@ class AdminController extends Controller
     public function index()
     {
         //
+        $admins = Admin::all();
+
+        return view('admins.index', compact('admins'));
     }
 
     /**
@@ -25,6 +28,7 @@ class AdminController extends Controller
     public function create()
     {
         //
+        return view('admins.create');
     }
 
     /**
@@ -35,7 +39,14 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData= $request->validate([
+            'name' => 'required',
+            'lastname' => 'required'
+        ]);
+        Admin::create($validateData);
+        $new_admin = Admin::orderBy('id', 'desc')->first();
+
+        return redirect()->route('admins.show', $new_admin);
     }
 
     /**
@@ -44,9 +55,12 @@ class AdminController extends Controller
      * @param  \App\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function show(Admin $admin)
+    public function show($admin)
     {
         //
+        $admin = Admin::find($admin);
+
+        return view('admins.show', compact('admin'));
     }
 
     /**
@@ -55,9 +69,11 @@ class AdminController extends Controller
      * @param  \App\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function edit(Admin $admin)
+    public function edit($admin)
     {
         //
+        $admin = Admin::find($admin);
+        return view('admins.edit', compact('admin'));
     }
 
     /**
@@ -67,9 +83,17 @@ class AdminController extends Controller
      * @param  \App\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Admin $admin)
+    public function update(Request $request, $admin)
     {
         //
+        $validateData= $request->validate([
+            'name' => 'required',
+            'lastname' => 'required'
+        ]);
+
+        $admin = Admin::find($admin);
+        $admin->update($validateData);
+        return redirect('/admins')->with('success', 'Admin salvato!');
     }
 
     /**
@@ -78,8 +102,12 @@ class AdminController extends Controller
      * @param  \App\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Admin $admin)
+    public function destroy($admin)
     {
         //
+        $admin = Admin::find($admin);
+        $admin->delete();
+
+        return redirect('/admins')->with('success', 'Admin Cancellato!');
     }
 }
