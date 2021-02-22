@@ -27,7 +27,7 @@
                 <input type="text" class="form-control" name="name" value="{{$editor->name}}" />
             </div>
             <div class="form-group">
-                <label for="name">Cognome</label>
+                <label for="lastname">Cognome</label>
                 <input type="text" class="form-control" name="lastname" value="{{$editor->lastname}}" />
             </div>
             <button type="submit" class="btn btn-primary">Aggiorna</button>

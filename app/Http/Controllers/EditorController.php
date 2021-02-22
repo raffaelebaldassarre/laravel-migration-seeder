@@ -28,7 +28,7 @@ class EditorController extends Controller
     public function create()
     {
         //
-        return view('admins.create');
+        return view('editors.create');
     }
 
     /**

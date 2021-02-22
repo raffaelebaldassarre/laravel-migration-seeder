@@ -27,9 +27,9 @@
       @enderror
 
       <div class="form-group">
-        <label for="lastname">Nome</label>
+        <label for="lastname">Cognome</label>
         <input type="text"
-          class="form-control" lastname="lastname" id="lastname" aria-describedby="lastnameHelper" placeholder="Inserisci il cognome" value="{{ old('lastname') }}">
+          class="form-control" name="lastname" id="lastname" aria-describedby="lastnameHelper" placeholder="Inserisci il cognome" value="{{ old('lastname') }}">
         <small id="lastnameHelper" class="form-text text-muted">Cognome</small>
       </div>
       @error('lastname')
