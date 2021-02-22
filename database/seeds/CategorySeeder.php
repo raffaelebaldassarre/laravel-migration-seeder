@@ -1,5 +1,7 @@
 <?php
 
+use Faker\Generator as Faker;
+use App\Category;
 use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
@@ -9,8 +11,16 @@ class CategorySeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
-        //
+        for ($i = 0; $i < 10; $i++){
+            $newCategory = new Category();
+            $newCategory->title = $faker->title;
+            $newCategory->description = $faker->sentence(10);
+            $newCategory->save();
+        }
     }
 }
+
+
+/////FAKER//////

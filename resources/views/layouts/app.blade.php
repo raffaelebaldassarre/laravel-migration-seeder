@@ -22,9 +22,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route ('contacts')}}">Contacts</a>
                     </li>
-{{--                     <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('categories.index') }}">Lista Categorie</a>
-                    </li> --}}
+                    </li>
                 </ul>
             </nav>
         </header>

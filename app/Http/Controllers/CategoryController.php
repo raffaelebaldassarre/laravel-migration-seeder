@@ -15,6 +15,9 @@ class CategoryController extends Controller
     public function index()
     {
         //
+        $categories = Category::all();
+
+        return view('category.index', compact('categories'));
     }
 
     /**
@@ -25,6 +28,7 @@ class CategoryController extends Controller
     public function create()
     {
         //
+        return view('categories.create');
     }
 
     /**
@@ -35,7 +39,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData= $request->validate([
+            'title' => 'required',
+            'body' => 'required'
+        ]);
+        Category::create($validateData);
+        $new_category = Category::orderBy('id', 'desc')->first();
+
+        return redirect()->route('categories.show', $new_category);
     }
 
     /**
@@ -47,6 +58,9 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         //
+        $category = Category::find($category);
+
+        return view('categories.show', compact('category'));
     }
 
     /**
@@ -55,9 +69,11 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($category)
     {
         //
+        $category = Category::find($category);
+        return view('categories.edit', compact('category')); 
     }
 
     /**
@@ -67,9 +83,17 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $category)
     {
         //
+        $validateData= $request->validate([
+            'title' => 'required',
+            'body' => 'required'
+        ]);
+
+        $category = Category::find($category);
+        $category->update($validateData);
+        return redirect('/categories')->with('success', 'Categoria salvata!');
     }
 
     /**
@@ -81,5 +105,9 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         //
+            $category = Category::find($category);
+            $category->delete();
+
+            return redirect('/categories')->with('success', 'Categoria Cancellata!');
     }
 }
